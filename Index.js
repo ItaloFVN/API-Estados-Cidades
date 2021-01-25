@@ -7,6 +7,8 @@ app.set('port', process.env.PORT || 8080);
 
 app.use(bodyParser.json());
 
+app.post('/', (req, res) => res.status(200).json(estadosCidadesDB));
+
 app.get('/', (req, res) => res.status(200).json(estadosCidadesDB));
 
 app.listen(process.env.PORT || 8080);
