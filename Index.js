@@ -27,11 +27,11 @@ app.get('/', function (req, res) {
 app.listen(process.env.PORT || 8080);
 
 function filtraCidades(estado){
-    var listaCidades = [];
+    var listaCidades = {cidades: []};
 
     for (const estadosCidades of estadosCidadesDB.estados) {
         if(estadosCidades.sigla == estado)
-            listaCidades = estadosCidades.cidades;
+            listaCidades.cidades = estadosCidades.cidades;
     }
 
     console.log(listaCidades);
