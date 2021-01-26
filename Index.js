@@ -7,8 +7,34 @@ app.set('port', process.env.PORT || 8080);
 
 app.use(bodyParser.json());
 
-app.post('/', (req, res) => res.status(200).json(estadosCidadesDB));
+app.post('/', function (req, res){
+    console.log(req.body);
+    switch (req.body.acao) {
+        case 'estados':
+            res.status(200).json(estadosCidadesDB);
+            break;
+        case 'cidades':
+            res.status(200).json(filtraCidades(req.body.estado));
+            break;
+    }
+    
+});
 
-app.get('/', (req, res) => res.status(200).json(estadosCidadesDB));
+app.get('/', function (req, res) {
+    res.status(200).json(estadosCidadesDB);
+});
 
 app.listen(process.env.PORT || 8080);
+
+function filtraCidades(estado){
+    var listaCidades = [];
+
+    for (const estadosCidades of estadosCidadesDB.estados) {
+        if(estadosCidades.sigla == estado)
+            listaCidades = estadosCidades.cidades;
+    }
+
+    console.log(listaCidades);
+    
+    return listaCidades;
+}
